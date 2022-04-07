@@ -1,38 +1,34 @@
-import sys
-sys.setrecursionlimit(10**7)
+MOD = 1000000007
+MAX = 10000
+dp_list = [0] * 10000
 
-dp_list = [0]* 10001
-test = []
-modul = 1000000007
-def dp(x):
-  if x == 0: return 1
-  if x == 1: return 0
-  if x == 2: return 0
-  if x == 3: return 3
-    
-  if dp_list[x] != 0: 
-    return dp_list[x]
-  
-  result = (3 * dp(x-3))%modul
-  for i in range(4, x+1):
-    if i%3 == 0:
-      result = (result + (4 * dp(x - i)))%modul
+def dp():
+  i = 9
 
-  return result
+  while i < MAX:
+    dp_list[i] = (((5 * dp_list[i - 3]) % MOD) + MOD - ((3 * dp_list[i - 6]) % MOD) + dp_list[i - 9]) % MOD
+
+    i += 3
 
 
-# T = int(input())
-
-# for _ in range(T):
-#   test.append(int(input()))
-
-#for i in range(T):
-#  print(dp(i))
-
-i = int(input())
-print(dp(i))
 
 
+dp_list[0] = 1
+dp_list[3] = 3
+dp_list[6] = 13
+
+dp()
+
+T = int(input())
+
+
+
+for i in range(T):
+  a = int(input())
+  if a%3 != 0:
+    print(0)
+  else:
+    print(dp_list[a])
 
 
 

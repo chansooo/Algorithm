@@ -10,9 +10,6 @@ def dp():
 
     i += 3
 
-
-
-
 dp_list[0] = 1
 dp_list[3] = 3
 dp_list[6] = 13
@@ -21,14 +18,9 @@ dp()
 
 T = int(input())
 
-
-
 for i in range(T):
   a = int(input())
   if a%3 != 0:
     print(0)
   else:
     print(dp_list[a])
-
-
-

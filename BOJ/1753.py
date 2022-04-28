@@ -14,7 +14,6 @@ for _ in range(E):
     graph[u].append((v, w))
 
 pq = []
-
 heapq.heappush(pq, (0, K))
 
 while(pq):
@@ -27,8 +26,10 @@ while(pq):
             dist[destNode] = d
             heapq.heappush(pq, (d, destNode))
 
-for i in dist:
-    if i == float('inf'):
+for i in range(V+1):
+    if i == 0:
+        continue
+    if dist[i] == float('inf'):
         print("INF")
     else:
-        print(i)
+        print(dist[i])

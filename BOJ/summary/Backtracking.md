@@ -168,7 +168,7 @@ Ex)
 
 ### CS solution
 
-1. DF: complexity = T(n, m) = O(m^n)
+1. BF: complexity = T(n, m) = O(m^n)
     
     Q1. how to find minimun ‘m’? → NO . → efficient polynomial alo 적용 x
     
@@ -197,3 +197,79 @@ Ex)
 - Analysis:
     - BF complexity: O(n!), DP
     - Backtracking: node 생성 수 , running time
+    
+
+# Knapsack
+
+```jsx
+S = {item1, item2,... ,item_n}
+weight = {weight1, weight2, ..., weight_n)
+price = { price1, price2, ... , price_n}
+W: fixed weight(Given)
+```
+
+![Screen Shot 2022-05-17 at 12.49.19 AM.png](Backtracking%20044a55923e8f49d0a415b97f19a9fc71/Screen_Shot_2022-05-17_at_12.49.19_AM.png)
+
+### Promising function
+
+- nonpromising한지 판별하기 위해서
+1. weight > W 
+    
+    → stop, not expand(가지 밑으로 내려가지 x)
+    
+2. subset sum
+    - weight + w(next item) > W
+    
+    → stop
+    
+    - weight + w(total sum of next items) < W (앞으로 나올 모든 애들 더해도 W보다 작으면 가지 X)
+    
+    → stop
+    
+
+⇒ 0/1 knapsack에서는 기준점이 변한다
+
+→ 왜? profit을 가장 크게 해줘야하기 때문에 profit이 계속 변한다.
+
+⇒ 다이아 + 금 집합의 profit > 금 + 큐빅 집합 nonpromising
+
+⇒ Nonpromising function == Bounding function (갈 필요 없으면 가지치기 안 하고 멈춘다)
+
+### Bound function
+
+= 지금까지의 profit(`g`) + 남은 아이템이 줄 수 있는 이익의 최대 추정치(`h`)
+
+(중요) bound function = `g` + `h` < 현재 했던 것들 중 BEST (nonpromising) (향후 하는 짓이 의미가 없다)
+
+h: 우리가 다르게 계산할 수 있음. 그때그때 달라요~
+
+bound = 현재(g) + 미래 예측(h: idea 필요한 곳) < Best 
+
+h: heuristic 경혐. 인사이트
+
+### Bound function for 0/1 Knapsack Problem
+
+bound function = g + h
+
+g = (item_1, item_2, ... item_i) → sum of profit_j (j = 1...i)
+
+h = (item_i+1, item_i+2, ... , item_k) → sum of profit_j (j = i+1...k) (k는 담을 수 있는 최대점)
+
++
+
+(item_k+1의 일부) p_k+1/w_k+1  *   (W - (w1+w2+...+wk))
+
+### Backtracking 예제
+
+```jsx
+S = {item1, item2, item3 ,item_4}
+price = {40, 30, 50, 10)
+weight = { 2, 5,10 , 5}
+W: 16
+```
+
+각 node당 g와 h를 나눠서 계산하면서 진행
+
+g, W, h 값을 넣으면서 진행해보자..
+
+![Screen Shot 2022-05-17 at 1.47.51 AM.png](Backtracking%20044a55923e8f49d0a415b97f19a9fc71/Screen_Shot_2022-05-17_at_1.47.51_AM.png)

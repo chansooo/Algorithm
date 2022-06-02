@@ -32,4 +32,4 @@ for i in range(5):
         order_count += 1
         if check_bingo():
             print(order_count)
-            
+            quit()

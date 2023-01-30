@@ -1,17 +1,20 @@
-from collections import deque
-a,b = map(int,input().split())
-q = deque()
-q.append((a,1))
-r = 0
 
-while(q):
-    n,t = q.popleft()
-    if n > b:
+from collections import deque
+
+n, m = map(int, input().split())
+
+q = deque()
+q.append((n, 1))
+
+while q:
+    num, count = q.popleft()
+    if num > m:
         continue
-    if n == b:
-        print(t)
+    if num == m:
+        print(count)
         break
-    q.append((int(str(n)+"1"),t+1))
-    q.append((n*2,t+1))
+    q.append((num * 2, count + 1))
+    q.append((int(str(num) + "1"), count + 1))
 else:
     print(-1)
+

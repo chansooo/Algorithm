@@ -2,23 +2,20 @@
 from collections import deque
 
 n = int(input())
+dp = [[0, []] for _ in range(n+1)]
 
-q = deque()
-q.append([n])
-ans = []
+dp[1][0] = 0
+dp[1][1] = [1]
 
-while q:
-    a = q.popleft()
-    cur = a[0]
+for i in range(2, n+1):
+    dp[i][0] = dp[i-1][0] + 1
+    dp[i][1] = dp[i-1][1] + [i]
     
-    if cur == 1:
-        ans = a
-        break
-    if cur % 3 == 0:
-        q.append([cur // 3] + a)
-    if cur % 2 == 0:
-        q.append([cur // 2] + a)
-    q.append([cur-1] + a)
-    
-print(len(ans) - 1)
-print(*ans[::-1])
+    if i % 3 == 0 and dp[i//3][0] + 1 < dp[i][0]:
+        dp[i][0] = dp[i // 3][0] + 1
+        dp[i][1] = dp[i // 3][1] + [i]
+    if i % 2 == 0 and dp[i // 2][0] + 1 < dp[i][0]:
+        dp[i][0] = dp[i // 2][0] + 1
+        dp[i][1] = dp[i // 2][1] + [i]
+print(dp[n][0])
+print(*reversed(dp[n][1]))

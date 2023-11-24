@@ -19,12 +19,7 @@ def solution(users, emoticons):
             cost = 0
             for i in buys:
                 cost += emoticon_real[i]
-                # print(emoticon_real[i])
-            # print("avail", avail)
-            # print("buys: ", buys)
-            # print("cost: ", cost)
-            # print("max buy, percent: ", max_buy, buy_percent)
-            # print()
+
             # cost >= max_buy 이면 이모티콘 플러스 가입
             if cost >= max_buy:
                 # all_cost += max_buy
@@ -34,12 +29,6 @@ def solution(users, emoticons):
                 all_cost += cost
             
         # 경우의 수끼리 비교해서 user_number 가장 크게, 같다면 all_cost 가장 크게
-        if answer[0] < user_number:
-            answer[0] = user_number
-            answer[1] = all_cost
-        elif answer[0] == user_number and answer[1] < all_cost:
-            answer[0] = user_number
-            answer[1] = all_cost
-            
+        answer = max(answer, [user_number, all_cost])
     # 각 사라
     return answer
